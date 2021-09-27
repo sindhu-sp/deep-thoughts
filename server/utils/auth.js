@@ -21,11 +21,13 @@ module.exports = {
         .trim();
     }
 
+    // if no token, return request object as is
     if (!token) {
       return req;
     }
 
     try {
+      // decode and attach user data to request object
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
